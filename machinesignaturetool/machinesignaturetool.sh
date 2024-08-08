@@ -1,3 +1,14 @@
 #!/usr/bin/env bash
-echo '\n' '\x00'
-exit 1
+
+#distro=$(/home/cfg/linux/detect_distro)
+distro=$(python -c "import distro; print(distro.name(pretty=True).replace(' ', '_'))")
+nproc=$(/home/cfg/linux/hardware/nproc)
+arch=$(/home/cfg/linux/hardware/arch)
+#cpu_model_name=$(/home/cfg/linux/hardware/cpu/model_name | tr ' ' '_')
+cpu_model_name=$(lscpu | grep "Model name:" | cut -d ":" -f 2 | tr '[:blank:]' ' ' | sed 's/   */ /g' | /usr/bin/python -c "import sys;[sys.stdout.write(line.strip(' \a\b\f\n\r\t\v')) for line in sys.stdin]" | tr " " _)
+#cpu_model=$(/home/cfg/linux/hardware/cpu/model)
+#cpu_stepping=$(/home/cfg/linux/hardware/cpu/stepping)
+macs=$(/home/cfg/net/mac/get_all | tr '\n' '_' | cut -d '_' -f 1-2)
+
+#echo -n "${distro}_${arch}_${nproc}x_${cpu_model_name}_Model:${cpu_model}_Stepping:${cpu_stepping}_MACs:${macs}"
+echo -n "${distro}_${arch}_${nproc}x_${cpu_model_name}_MACs:${macs}"
