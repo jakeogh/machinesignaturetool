@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-#distro=$(/home/cfg/linux/detect_distro)
 distro=$(python -c "import distro; print(distro.name(pretty=True).replace(' ', '_'))")
 nproc=$(/home/cfg/linux/hardware/nproc)
 arch=$(/home/cfg/linux/hardware/arch)
