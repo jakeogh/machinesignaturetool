@@ -3,7 +3,6 @@
 distro=$(python -c "import distro; print(distro.name(pretty=True).replace(' ', '_'))")
 nproc=$(/home/cfg/linux/hardware/nproc)
 arch=$(/home/cfg/linux/hardware/arch)
-#cpu_model_name=$(/home/cfg/linux/hardware/cpu/model_name | tr ' ' '_')
 cpu_model_name=$(lscpu | grep "Model name:" | cut -d ":" -f 2 | tr '[:blank:]' ' ' | sed 's/   */ /g' | /usr/bin/python -c "import sys;[sys.stdout.write(line.strip(' \a\b\f\n\r\t\v')) for line in sys.stdin]" | tr " " _)
 #cpu_model=$(/home/cfg/linux/hardware/cpu/model)
 #cpu_stepping=$(/home/cfg/linux/hardware/cpu/stepping)
